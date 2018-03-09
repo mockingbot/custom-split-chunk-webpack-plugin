@@ -1,0 +1,3 @@
+const VENDOR_DATA = 'MARK_VENDOR_DATA'
+
+export { VENDOR_DATA }

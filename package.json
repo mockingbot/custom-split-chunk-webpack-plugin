@@ -1,0 +1,49 @@
+{
+  "name": "custom-split-chunk-webpack-plugin",
+  "version": "0.0.0",
+  "author": "MockingBot",
+  "license": "MIT",
+  "description": "Get custom chunk by split selected module from selected chunk list.",
+  "keywords": [
+    "webpack",
+    "split",
+    "chunk"
+  ],
+  "repository": "https://github.com/mockingbot/custom-split-chunk-webpack-plugin.git",
+  "homepage": "https://github.com/mockingbot/custom-split-chunk-webpack-plugin#readme",
+  "bugs": "https://github.com/mockingbot/custom-split-chunk-webpack-plugin/issues",
+  "main": "library/index.js",
+  "scripts": {
+    "// script ======================": "",
+    "script-base": "cross-env BABEL_ENV=dev babel-node ./script",
+    "script-pack": "cross-env BABEL_ENV=dev babel-node ./script pack",
+    "script-publish": "cross-env BABEL_ENV=dev babel-node ./script pack publish",
+    "script-publish-dev": "cross-env BABEL_ENV=dev babel-node ./script pack publish-dev",
+    "// build =======================": "",
+    "build-library": "cross-env BABEL_ENV=library babel ./source --out-dir ./output-gitignore/library",
+    "// test ========================": "",
+    "test": "yarn test-basic && yarn test-custom-lib-big && yarn test-custom-lib-data-ui",
+    "test-basic": "cross-env BABEL_ENV=dev babel-node test/basic",
+    "test-custom-lib-big": "cross-env BABEL_ENV=dev babel-node test/custom-lib-big",
+    "test-custom-lib-data-ui": "cross-env BABEL_ENV=dev babel-node test/custom-lib-data-ui",
+    "// =============================": "",
+    "analyze-stat-test-basic": "webpack-bundle-analyzer test/basic/profile-stat-gitignore.json",
+    "analyze-stat-test-custom-lib-big": "webpack-bundle-analyzer test/custom-lib-big/profile-stat-gitignore.json",
+    "analyze-stat-test-custom-lib-data-ui": "webpack-bundle-analyzer test/custom-lib-data-ui/profile-stat-gitignore.json",
+    "prepack": "echo \"Error: should run pack with script-*\" && exit 1"
+  },
+  "engines": {
+    "node": ">=8.3.0",
+    "npm": ">=5.0.0"
+  },
+  "peerDependencies": {
+    "webpack": "4"
+  },
+  "devDependencies": {
+    "dev-dep-tool": "^0.0.14-dev.9",
+    "dev-dep-web": "^0.0.14-dev.8",
+    "dr-js": "^0.12.1-dev.0",
+    "webpack-bundle-analyzer": "^2.11.1"
+  },
+  "sideEffects": false
+}
