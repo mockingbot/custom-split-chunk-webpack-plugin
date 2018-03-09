@@ -54,24 +54,27 @@ const applyCustomSplitChunk = ({ chunkName, useExistChunk, filterChunk, filterMo
     )
   }
 
-  const selectedChunkList = chunkList
-    .filter((chunk) => chunk.name !== chunkName) // exclude chunkName when useExistChunk
-    .filter((chunk) => filterChunk({
-      chunk,
-      chunkList,
-      initialChunkNameList
-    }))
+  const selectedChunkListInclusive = chunkList.filter((chunk) => filterChunk({
+    chunk,
+    chunkList,
+    initialChunkNameList
+  }))
+  const selectedChunkList = useExistChunk
+    ? selectedChunkListInclusive.filter((chunk) => chunk.name !== chunkName) // exclude chunkName when useExistChunk
+    : selectedChunkListInclusive
   if (!selectedChunkList.length) throw new Error(`[${PLUGIN_NAME}] no chunk selected for chunkName: ${chunkName}`)
   __DEV__ && console.log('[selectedChunkList]', devChunkList(selectedChunkList))
 
-  const selectedModuleList = selectedChunkList.reduce((o, chunk) => o.concat(chunk.getModules()), []) // module from selectedChunkList
-    .filter((module) => filterModule({
-      module,
-      moduleChunkList: module.getChunks().filter((chunk) => selectedChunkList.includes(chunk)),
-      selectedChunkList,
-      chunkList,
-      initialChunkNameList
-    }))
+  const selectedModuleSet = new Set([
+    ...selectedChunkListInclusive.reduce((o, chunk) => o.concat(chunk.getModules()), [])
+  ])
+  const selectedModuleList = Array.from(selectedModuleSet).filter((module) => filterModule({
+    module,
+    moduleChunkList: module.getChunks().filter((chunk) => selectedChunkListInclusive.includes(chunk)),
+    selectedChunkList,
+    chunkList,
+    initialChunkNameList
+  }))
   if (!selectedModuleList.length) throw new Error(`[${PLUGIN_NAME}] no module selected for chunkName: ${chunkName}`)
   __DEV__ && console.log('[selectedModuleList]', devModuleList(selectedModuleList))
 
