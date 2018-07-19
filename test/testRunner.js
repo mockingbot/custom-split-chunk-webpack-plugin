@@ -21,9 +21,10 @@ const taskRunner = ({
   const fromOutput = (...args) => resolvePath(PATH_OUTPUT, ...args)
 
   const babelOption = {
+    configFile: false,
     babelrc: false,
     presets: [ [ '@babel/env', { targets: { node: 8 }, modules: false } ] ],
-    plugins: [ [ '@babel/proposal-class-properties' ], [ '@babel/proposal-object-rest-spread', { useBuiltIns: true } ] ]
+    plugins: [ [ '@babel/proposal-class-properties' ] ]
   }
 
   const config = {

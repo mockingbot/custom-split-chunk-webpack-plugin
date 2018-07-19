@@ -2,15 +2,15 @@ language: node_js
 
 node_js:
   - "node"
+  - "9"
   - "8"
 
 install:
-  - yarn
+  - npm install
 
 script:
-  - yarn test
+  - npm test
 
 cache:
-  yarn: true
   directories:
     - "node_modules"

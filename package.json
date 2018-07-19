@@ -1,17 +1,16 @@
 {
   "name": "custom-split-chunk-webpack-plugin",
-  "version": "0.0.1-dev.0",
+  "version": "0.0.1",
   "author": "MockingBot",
   "license": "MIT",
   "description": "Get custom chunk by split selected module from selected chunk list.",
   "keywords": [
     "webpack",
     "split",
-    "chunk"
+    "chunk",
+    "plugin"
   ],
-  "repository": "https://github.com/mockingbot/custom-split-chunk-webpack-plugin.git",
-  "homepage": "https://github.com/mockingbot/custom-split-chunk-webpack-plugin#readme",
-  "bugs": "https://github.com/mockingbot/custom-split-chunk-webpack-plugin/issues",
+  "repository": "github:mockingbot/custom-split-chunk-webpack-plugin",
   "main": "library/index.js",
   "scripts": {
     "// script ======================": "",
@@ -22,7 +21,7 @@
     "// build =======================": "",
     "build-library": "cross-env BABEL_ENV=library babel ./source --out-dir ./output-gitignore/library",
     "// test ========================": "",
-    "test": "yarn test-basic && yarn test-custom-lib-big && yarn test-custom-lib-data-ui",
+    "test": "npm run test-basic && npm run test-custom-lib-big && npm run test-custom-lib-data-ui",
     "test-basic": "cross-env BABEL_ENV=dev babel-node test/basic",
     "test-custom-lib-big": "cross-env BABEL_ENV=dev babel-node test/custom-lib-big",
     "test-custom-lib-data-ui": "cross-env BABEL_ENV=dev babel-node test/custom-lib-data-ui",
@@ -33,17 +32,16 @@
     "prepack": "echo \"Error: should run pack with script-*\" && exit 1"
   },
   "engines": {
-    "node": ">=8.3.0",
-    "npm": ">=5.0.0"
+    "node": ">=8.3",
+    "npm": ">=6"
   },
   "peerDependencies": {
     "webpack": "4"
   },
   "devDependencies": {
-    "dev-dep-tool": "^0.0.14-dev.9",
-    "dev-dep-web": "^0.0.14-dev.8",
-    "dr-js": "^0.12.1-dev.0",
-    "webpack-bundle-analyzer": "^2.11.1"
-  },
-  "sideEffects": false
+    "dr-js": "0.16.0-dev.9",
+    "dev-dep-tool": "0.3.1-dev.2",
+    "dev-dep-web": "0.3.1-dev.2",
+    "webpack-bundle-analyzer": "^2.13.1"
+  }
 }

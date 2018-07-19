@@ -2,6 +2,8 @@ const PLUGIN_NAME = 'CustomSplitChunkWebpackPlugin'
 
 // modified from: https://github.com/webpack/webpack/blob/00f70fc65cab43d682c80264c959eff81db531b4/lib/optimize/SplitChunksPlugin.js
 class CustomSplitChunkWebpackPlugin {
+  static name = PLUGIN_NAME // prevent code minify drop plugin name
+
   constructor (customOptionList) {
     this.customOptionList = verifyCustomOptionList(customOptionList)
   }
@@ -9,18 +11,18 @@ class CustomSplitChunkWebpackPlugin {
   apply (compiler) {
     compiler.hooks.thisCompilation.tap(PLUGIN_NAME, (compilation) => {
       let alreadyOptimized = false
+
       compilation.hooks.unseal.tap(PLUGIN_NAME, () => {
         alreadyOptimized = false
       })
+
       compilation.hooks.optimizeChunksAdvanced.tap(PLUGIN_NAME, (chunks) => {
         if (alreadyOptimized) return
         alreadyOptimized = true
         return this.customOptionList.reduce((o, customOption) => {
-
           __DEV__ && console.log('## SPLIT START ===', JSON.stringify(customOption))
           const isChanged = applyCustomSplitChunk(customOption, compilation, chunks)
           __DEV__ && console.log('## SPLIT DONE ====\n')
-
           return isChanged || o
         }, false)
       })
@@ -117,7 +119,8 @@ const applyCustomSplitChunk = ({ chunkName, useExistChunk, filterChunk, filterMo
   return true
 }
 
-// picked from: https://github.com/webpack/webpack/blob/00f70fc65cab43d682c80264c959eff81db531b4/lib/GraphHelpers.js
+// picked from github:webpack/webpack
+// https://github.com/webpack/webpack/blob/3072378892739475c2707a024677511bba3ca973/lib/GraphHelpers.js#L34
 const connectChunkAndModule = (chunk, module) => {
   if (module.addChunk(chunk)) {
     chunk.addModule(module)
