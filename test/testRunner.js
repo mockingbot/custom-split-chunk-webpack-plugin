@@ -1,8 +1,8 @@
-import { deepEqual } from 'assert'
+import { deepStrictEqual } from 'assert'
 import { readFileSync } from 'fs'
 import { resolve as resolvePath } from 'path'
 
-import { runMain } from 'dev-dep-tool/library/__utils__'
+import { runMain } from 'dev-dep-tool/library/main'
 import { getLogger } from 'dev-dep-tool/library/logger'
 import { compileWithWebpack } from 'dev-dep-tool/library/webpack'
 
@@ -45,7 +45,7 @@ const taskRunner = ({
     const fileContent = readFileSync(fromOutput(fileName), { encoding: 'utf8' })
     const fileMarkList = Array.from(new Set(fileContent.match(/MARK_\w+/g)))
     logger.log(`verify file '${fileName}' to have: ${markList.join(', ')}`)
-    deepEqual(fileMarkList.sort(sortMark), markList.sort(sortMark), `verify file: ${fileName}`)
+    deepStrictEqual(fileMarkList.sort(sortMark), markList.sort(sortMark), `verify file: ${fileName}`)
   }
 }, getLogger(taskName))
 

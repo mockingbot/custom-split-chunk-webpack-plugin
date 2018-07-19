@@ -1,6 +1,6 @@
 {
   "name": "custom-split-chunk-webpack-plugin",
-  "version": "0.0.1",
+  "version": "0.0.2-dev.0",
   "author": "MockingBot",
   "license": "MIT",
   "description": "Get custom chunk by split selected module from selected chunk list.",
@@ -26,22 +26,20 @@
     "test-custom-lib-big": "cross-env BABEL_ENV=dev babel-node test/custom-lib-big",
     "test-custom-lib-data-ui": "cross-env BABEL_ENV=dev babel-node test/custom-lib-data-ui",
     "// =============================": "",
-    "analyze-stat-test-basic": "webpack-bundle-analyzer test/basic/profile-stat-gitignore.json",
-    "analyze-stat-test-custom-lib-big": "webpack-bundle-analyzer test/custom-lib-big/profile-stat-gitignore.json",
-    "analyze-stat-test-custom-lib-data-ui": "webpack-bundle-analyzer test/custom-lib-data-ui/profile-stat-gitignore.json",
-    "prepack": "echo \"Error: should run pack with script-*\" && exit 1"
+    "analyze-stat-test-basic": "npx webpack-bundle-analyzer test/basic/profile-stat-gitignore.json",
+    "analyze-stat-test-custom-lib-big": "npx webpack-bundle-analyzer test/custom-lib-big/profile-stat-gitignore.json",
+    "analyze-stat-test-custom-lib-data-ui": "npx webpack-bundle-analyzer test/custom-lib-data-ui/profile-stat-gitignore.json",
+    "prepack": "echo \"Error: pack with script-*\" && exit 1"
   },
   "engines": {
-    "node": ">=8.3",
+    "node": ">=8.8",
     "npm": ">=6"
   },
   "peerDependencies": {
     "webpack": "4"
   },
   "devDependencies": {
-    "dr-js": "0.16.0-dev.9",
-    "dev-dep-tool": "0.3.1-dev.2",
-    "dev-dep-web": "0.3.1-dev.2",
-    "webpack-bundle-analyzer": "^2.13.1"
+    "dev-dep-tool": "0.4.1-dev.0",
+    "dev-dep-web": "^0.4.0"
   }
 }
