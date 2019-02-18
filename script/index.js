@@ -1,12 +1,12 @@
 import { resolve } from 'path'
 import { execSync } from 'child_process'
 
-import { argvFlag, runMain } from 'dev-dep-tool/library/main'
-import { getLogger } from 'dev-dep-tool/library/logger'
-import { getScriptFileListFromPathList } from 'dev-dep-tool/library/fileList'
-import { initOutput, packOutput, publishOutput } from 'dev-dep-tool/library/commonOutput'
-import { wrapFileProcessor, fileProcessorBabel } from 'dev-dep-tool/library/fileProcessor'
-import { getTerserOption, minifyFileListWithTerser } from 'dev-dep-tool/library/minify'
+import { argvFlag, runMain } from 'dr-dev/module/main'
+import { getLogger } from 'dr-dev/module/logger'
+import { getScriptFileListFromPathList } from 'dr-dev/module/fileList'
+import { initOutput, packOutput, publishOutput } from 'dr-dev/module/commonOutput'
+import { processFileList, fileProcessorBabel } from 'dr-dev/module/fileProcessor'
+import { getTerserOption, minifyFileListWithTerser } from 'dr-dev/module/minify'
 
 const PATH_ROOT = resolve(__dirname, '..')
 const PATH_OUTPUT = resolve(__dirname, '../output-gitignore')
@@ -28,19 +28,11 @@ runMain(async (logger) => {
 
   const fileList = await getScriptFileListFromPathList([ 'library' ], fromOutput)
 
-  logger.padLog(`minify`)
-  await minifyFileListWithTerser({
-    fileList,
-    option: getTerserOption({ isModule: true }),
-    rootPath: PATH_OUTPUT,
-    logger
-  })
-
-  logger.padLog(`process library`)
-  const processBabel = wrapFileProcessor({ processor: fileProcessorBabel, logger })
-  let sizeCodeReduceLibrary = 0
-  for (const filePath of fileList) sizeCodeReduceLibrary += await processBabel(filePath)
-  logger.log(`library size reduce: ${sizeCodeReduceLibrary}B`)
+  logger.padLog(`process output`)
+  let sizeReduce = 0
+  sizeReduce += await minifyFileListWithTerser({ fileList, option: getTerserOption({ isReadable: true }), rootPath: PATH_OUTPUT, logger })
+  sizeReduce += await processFileList({ fileList, processor: fileProcessorBabel, rootPath: PATH_ROOT, logger })
+  logger.log(`size reduce: ${sizeReduce}B`)
 
   const pathPackagePack = await packOutput({ fromRoot, fromOutput, logger })
   await publishOutput({ flagList: process.argv, packageJSON, pathPackagePack, extraArgs: [ '--userconfig', '~/mockingbot.npmrc' ], logger })

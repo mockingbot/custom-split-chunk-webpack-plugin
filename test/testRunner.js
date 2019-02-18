@@ -2,9 +2,9 @@ import { deepStrictEqual } from 'assert'
 import { readFileSync } from 'fs'
 import { resolve as resolvePath } from 'path'
 
-import { runMain } from 'dev-dep-tool/library/main'
-import { getLogger } from 'dev-dep-tool/library/logger'
-import { compileWithWebpack } from 'dev-dep-tool/library/webpack'
+import { runMain } from 'dr-dev/library/main'
+import { getLogger } from 'dr-dev/library/logger'
+import { compileWithWebpack } from 'dr-dev/library/webpack'
 
 import { CustomSplitChunkWebpackPlugin } from '../source'
 
@@ -23,7 +23,7 @@ const taskRunner = ({
   const babelOption = {
     configFile: false,
     babelrc: false,
-    presets: [ [ '@babel/env', { targets: { node: 8 }, modules: false } ] ],
+    presets: [ [ '@babel/env', { targets: { node: '10' }, modules: false } ] ],
     plugins: [ [ '@babel/proposal-class-properties' ] ]
   }
 

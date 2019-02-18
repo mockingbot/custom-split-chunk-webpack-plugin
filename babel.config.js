@@ -4,12 +4,18 @@ const isModule = BABEL_ENV.includes('module')
 
 module.exports = {
   presets: [
-    [ '@babel/env', { targets: { node: '8.8' }, modules: isModule ? false : 'commonjs' } ]
+    [ '@babel/env', { targets: { node: '10' }, modules: isModule ? false : 'commonjs' } ]
   ],
   plugins: [
     [ '@babel/proposal-class-properties' ],
-    [ 'module-resolver', { root: [ './' ], alias: isModule ? undefined : { 'dr-js/module/(.+)': 'dr-js/library/' } } ],
-    [ 'minify-replace', { replacements: [ { identifierName: '__DEV__', replacement: { type: 'booleanLiteral', value: isDev } } ] } ]
+    [ 'minify-replace', { replacements: [ { identifierName: '__DEV__', replacement: { type: 'booleanLiteral', value: isDev } } ] } ],
+    [ 'module-resolver', {
+      root: [ './' ],
+      alias: isModule ? undefined : {
+        '^dr-dev/module/(.+)': 'dr-dev/library/\\1',
+        '^dr-js/module/(.+)': 'dr-js/library/\\1'
+      }
+    } ]
   ],
   comments: false
 }
