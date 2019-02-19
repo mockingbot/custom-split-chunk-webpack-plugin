@@ -3,7 +3,6 @@ import { readFileSync } from 'fs'
 import { resolve as resolvePath } from 'path'
 
 import { runMain } from 'dr-dev/library/main'
-import { getLogger } from 'dr-dev/library/logger'
 import { compileWithWebpack } from 'dr-dev/library/webpack'
 
 import { CustomSplitChunkWebpackPlugin } from '../source'
@@ -47,6 +46,6 @@ const taskRunner = ({
     logger.log(`verify file '${fileName}' to have: ${markList.join(', ')}`)
     deepStrictEqual(fileMarkList.sort(sortMark), markList.sort(sortMark), `verify file: ${fileName}`)
   }
-}, getLogger(taskName))
+}, taskName)
 
 export { taskRunner }

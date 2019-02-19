@@ -1,9 +1,9 @@
 {
   "name": "custom-split-chunk-webpack-plugin",
-  "version": "0.0.3",
-  "author": "MockingBot",
-  "license": "MIT",
+  "version": "0.0.4-dev.0",
   "description": "Get custom chunk by split selected module from selected chunk list.",
+  "author": "mockingbot",
+  "license": "MIT",
   "keywords": [
     "webpack",
     "split",
@@ -32,14 +32,14 @@
     "prepack": "echo \"Error: pack with script-*\" && exit 1"
   },
   "engines": {
-    "node": ">=10",
+    "node": ">=10.15",
     "npm": ">=6"
   },
   "peerDependencies": {
     "webpack": "4"
   },
   "devDependencies": {
-    "dr-dev": "0.0.3",
-    "dr-dev-web": "0.0.3"
+    "dr-dev": "0.0.6-dev.3",
+    "dr-dev-web": "0.0.6-dev.3"
   }
 }
