@@ -1,11 +1,11 @@
 import { deepStrictEqual } from 'assert'
 import { readFileSync } from 'fs'
-import { resolve as resolvePath } from 'path'
+import { resolve } from 'path'
 
-import { runMain } from 'dr-dev/library/main'
-import { compileWithWebpack } from 'dr-dev/library/webpack'
+import { runMain } from 'dr-dev/module/main'
+import { compileWithWebpack } from 'dr-dev/module/webpack'
 
-import { CustomSplitChunkWebpackPlugin } from '../source'
+import { createCustomSplitChunkWebpackPlugin } from '../source'
 
 const sortMark = (a, b) => a.localeCompare(b)
 const taskRunner = ({
@@ -16,8 +16,8 @@ const taskRunner = ({
   verifyOutputContentMap,
   taskName
 }) => runMain(async (logger) => {
-  const fromRoot = (...args) => resolvePath(PATH_ROOT, ...args)
-  const fromOutput = (...args) => resolvePath(PATH_OUTPUT, ...args)
+  const fromRoot = (...args) => resolve(PATH_ROOT, ...args)
+  const fromOutput = (...args) => resolve(PATH_OUTPUT, ...args)
 
   const babelOption = {
     configFile: false,
@@ -32,7 +32,7 @@ const taskRunner = ({
     entry: entryMap,
     resolve: { alias: { source: fromRoot('source') } },
     module: { rules: [ { test: /\.js$/, exclude: /node_modules/, use: { loader: 'babel-loader', options: babelOption } } ] },
-    plugins: [ new CustomSplitChunkWebpackPlugin(customOptionList) ],
+    plugins: [ createCustomSplitChunkWebpackPlugin(customOptionList) ],
     optimization: { runtimeChunk: { name: 'runtime' }, minimize: false }
   }
 

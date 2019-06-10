@@ -1,7 +1,7 @@
 import { resolve } from 'path'
 import { execSync } from 'child_process'
 
-import { getScriptFileListFromPathList } from 'dr-dev/module/node/fileList'
+import { getScriptFileListFromPathList } from 'dr-dev/module/node/file'
 import { argvFlag, runMain } from 'dr-dev/module/main'
 import { initOutput, packOutput, publishOutput } from 'dr-dev/module/output'
 import { getTerserOption, minifyFileListWithTerser } from 'dr-dev/module/minify'
@@ -18,8 +18,11 @@ runMain(async (logger) => {
   if (!argvFlag('pack')) return
 
   if (argvFlag('test', 'publish', 'publish-dev')) {
+    logger.padLog('lint source')
+    execSync(`npm run lint`, execOptionRoot)
+
     logger.padLog('test source')
-    execSync(`npm test`, execOptionRoot)
+    execSync(`npm run test-all`, execOptionRoot)
   }
 
   logger.padLog(`build library`)

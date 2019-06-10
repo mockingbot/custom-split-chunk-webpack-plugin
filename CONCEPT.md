@@ -19,7 +19,7 @@ so the custom chunk will and must be splitted and generated.
 ## Usage
 
 ```js
-const { CustomSplitChunkWebpackPlugin } = require('custom-split-chunk-webpack-plugin')
+const { createCustomSplitChunkWebpackPlugin } = require('custom-split-chunk-webpack-plugin')
 
 const customOptionList = [
   { // first custom split option
@@ -44,7 +44,7 @@ const customOptionList = [
 const webpackConfig = {
   plugins: [
     // ...
-    new CustomSplitChunkWebpackPlugin(customOptionList)
+    createCustomSplitChunkWebpackPlugin(customOptionList)
     // ...
   ]
 }
@@ -229,7 +229,7 @@ and the split only apply to selected chunks.
 With some config like this:
 
 ```js
-new CustomSplitChunkWebpackPlugin([ {
+createCustomSplitChunkWebpackPlugin([ {
   chunkName: 'lib-big',
   // only for `chunk-A` and `chunk-B`
   filterChunk: ({ chunk }) => [ 'A', 'B' ].includes(chunk.name),
@@ -299,7 +299,7 @@ Last split will generate `lib-ui` from chunks except `chunk-lib-big`:
 And if we change the order of `customOption`, like:
 
 ```js
-new CustomSplitChunkWebpackPlugin([ {
+createCustomSplitChunkWebpackPlugin([ {
   chunkName: 'vendor',
   // split modules used in all chunks
   filterModule: ({ moduleChunkList, initialChunkNameList }) => moduleChunkList.length === initialChunkNameList.length

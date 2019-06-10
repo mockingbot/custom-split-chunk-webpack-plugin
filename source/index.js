@@ -1,32 +1,31 @@
 const PLUGIN_NAME = 'CustomSplitChunkWebpackPlugin'
 
 // modified from: https://github.com/webpack/webpack/blob/00f70fc65cab43d682c80264c959eff81db531b4/lib/optimize/SplitChunksPlugin.js
-class CustomSplitChunkWebpackPlugin {
-  static name = PLUGIN_NAME // prevent code minify drop plugin name
+const createCustomSplitChunkWebpackPlugin = (customOptionList) => {
+  customOptionList = verifyCustomOptionList(customOptionList)
 
-  constructor (customOptionList) {
-    this.customOptionList = verifyCustomOptionList(customOptionList)
-  }
+  return {
+    name: PLUGIN_NAME, // prevent code minify drop plugin name
+    apply: (compiler) => {
+      compiler.hooks.thisCompilation.tap(PLUGIN_NAME, (compilation) => {
+        let alreadyOptimized = false
 
-  apply (compiler) {
-    compiler.hooks.thisCompilation.tap(PLUGIN_NAME, (compilation) => {
-      let alreadyOptimized = false
+        compilation.hooks.unseal.tap(PLUGIN_NAME, () => {
+          alreadyOptimized = false
+        })
 
-      compilation.hooks.unseal.tap(PLUGIN_NAME, () => {
-        alreadyOptimized = false
+        compilation.hooks.optimizeChunksAdvanced.tap(PLUGIN_NAME, (chunks) => {
+          if (alreadyOptimized) return
+          alreadyOptimized = true
+          return customOptionList.reduce((o, customOption) => {
+            __DEV__ && console.log('## SPLIT START ===', JSON.stringify(customOption))
+            const isChanged = applyCustomSplitChunk(customOption, compilation, chunks)
+            __DEV__ && console.log('## SPLIT DONE ====\n')
+            return isChanged || o
+          }, false)
+        })
       })
-
-      compilation.hooks.optimizeChunksAdvanced.tap(PLUGIN_NAME, (chunks) => {
-        if (alreadyOptimized) return
-        alreadyOptimized = true
-        return this.customOptionList.reduce((o, customOption) => {
-          __DEV__ && console.log('## SPLIT START ===', JSON.stringify(customOption))
-          const isChanged = applyCustomSplitChunk(customOption, compilation, chunks)
-          __DEV__ && console.log('## SPLIT DONE ====\n')
-          return isChanged || o
-        }, false)
-      })
-    })
+    }
   }
 }
 
@@ -127,4 +126,12 @@ const connectChunkAndModule = (chunk, module) => {
   }
 }
 
-export { CustomSplitChunkWebpackPlugin }
+function CustomSplitChunkWebpackPlugin (customOptionList) { // TODO: DEPREACTE: use create function instead of new
+  return createCustomSplitChunkWebpackPlugin(customOptionList)
+}
+
+export {
+  createCustomSplitChunkWebpackPlugin,
+
+  CustomSplitChunkWebpackPlugin // TODO: DEPREACTE: use create function instead of new
+}

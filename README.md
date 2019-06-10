@@ -22,7 +22,7 @@ Get custom chunk by split selected module from selected chunk list.
 #### Basic Usage 
 
 ```js
-const { CustomSplitChunkWebpackPlugin } = require('custom-split-chunk-webpack-plugin')
+const { createCustomSplitChunkWebpackPlugin } = require('custom-split-chunk-webpack-plugin')
 
 const customOptionList = [
   { // first custom split option
@@ -47,7 +47,7 @@ const customOptionList = [
 const webpackConfig = {
   plugins: [
     // ...
-    new CustomSplitChunkWebpackPlugin(customOptionList)
+    createCustomSplitChunkWebpackPlugin(customOptionList)
     // ...
   ]
 }
