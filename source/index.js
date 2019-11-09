@@ -126,12 +126,4 @@ const connectChunkAndModule = (chunk, module) => {
   }
 }
 
-function CustomSplitChunkWebpackPlugin (customOptionList) { // TODO: DEPREACTE: use create function instead of new
-  return createCustomSplitChunkWebpackPlugin(customOptionList)
-}
-
-export {
-  createCustomSplitChunkWebpackPlugin,
-
-  CustomSplitChunkWebpackPlugin // TODO: DEPREACTE: use create function instead of new
-}
+export { createCustomSplitChunkWebpackPlugin }

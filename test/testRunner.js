@@ -2,8 +2,8 @@ import { deepStrictEqual } from 'assert'
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
 
-import { runMain } from 'dr-dev/module/main'
-import { compileWithWebpack } from 'dr-dev/module/webpack'
+import { runMain } from '@dr-js/dev/module/main'
+import { compileWithWebpack } from '@dr-js/dev/module/webpack'
 
 import { createCustomSplitChunkWebpackPlugin } from '../source'
 
