@@ -118,6 +118,7 @@ const applyCustomSplitChunk = ({ chunkName, useExistChunk, filterChunk, filterMo
   return true
 }
 
+// TODO: follow webpack code change to chunkGroup? check: https://github.com/webpack/webpack/commit/3cf01999b598874721d4353bb5d85c98f3f86768#diff-807fd6217c23ef2fa9d9145ba83125d7
 // picked from github:webpack/webpack
 // https://github.com/webpack/webpack/blob/3072378892739475c2707a024677511bba3ca973/lib/GraphHelpers.js#L34
 const connectChunkAndModule = (chunk, module) => {

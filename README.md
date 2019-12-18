@@ -7,11 +7,11 @@
 
 Get custom chunk by split selected module from selected chunk list.
 
-[i:npm]: https://img.shields.io/npm/v/custom-split-chunk-webpack-plugin.svg?colorB=blue
-[i:npm-dev]: https://img.shields.io/npm/v/custom-split-chunk-webpack-plugin/dev.svg
+[i:npm]: https://img.shields.io/npm/v/custom-split-chunk-webpack-plugin?colorB=blue
+[i:npm-dev]: https://img.shields.io/npm/v/custom-split-chunk-webpack-plugin/dev
 [l:npm]: https://npm.im/custom-split-chunk-webpack-plugin
-[i:ci]: https://travis-ci.org/mockingbot/custom-split-chunk-webpack-plugin.svg?branch=master
-[l:ci]: https://travis-ci.org/mockingbot/custom-split-chunk-webpack-plugin
+[i:ci]: https://img.shields.io/github/workflow/status/mockingbot/custom-split-chunk-webpack-plugin/ci-test
+[l:ci]: https://github.com/mockingbot/custom-split-chunk-webpack-plugin/actions?query=workflow:ci-test
 [i:size]: https://packagephobia.now.sh/badge?p=custom-split-chunk-webpack-plugin
 [l:size]: https://packagephobia.now.sh/result?p=custom-split-chunk-webpack-plugin
 
